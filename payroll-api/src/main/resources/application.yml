@@ -3,4 +3,4 @@ server:
   
 spring:
   application:
-    name: "payroll_api"
+    name: "payroll-api"
