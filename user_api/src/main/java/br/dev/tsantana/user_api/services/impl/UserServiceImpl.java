@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.dev.tsantana.user_api.domain.User;
+import br.dev.tsantana.user_api.dto.UserDTO;
 import br.dev.tsantana.user_api.repositories.UserRepository;
 import br.dev.tsantana.user_api.services.UserService;
 
@@ -18,15 +19,17 @@ public class UserServiceImpl implements UserService{
 	
 	@Transactional(readOnly = true)
 	@Override
-	public User findById(Long id) {
+	public UserDTO findById(Long id) {
 		User obj = userRepository.findById(id).orElse(null);
-		return obj;
+		UserDTO dto = new UserDTO(obj);
+		return dto;
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<User> findAll() {
-		return userRepository.findAll();
+	public List<UserDTO> findAll() {
+		List<User> result = userRepository.findAll();
+		return result.stream().map(x -> new UserDTO(x)).toList();
 	}
 
 }

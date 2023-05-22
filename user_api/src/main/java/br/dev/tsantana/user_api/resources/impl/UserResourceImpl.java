@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.dev.tsantana.user_api.domain.User;
+import br.dev.tsantana.user_api.dto.UserDTO;
 import br.dev.tsantana.user_api.resources.UserResource;
 import br.dev.tsantana.user_api.services.UserService;
 
@@ -19,15 +19,14 @@ public class UserResourceImpl implements UserResource {
 	private UserService userService;
 	
 	@Override
-	public ResponseEntity<User> findById(Long id) {
-		User user = userService.findById(id);
-		return ResponseEntity.ok(user);
+	public ResponseEntity<UserDTO> findById(Long id) {
+		UserDTO dto = userService.findById(id);
+		return ResponseEntity.ok(dto);
 	}
 
 	@Override
-	public ResponseEntity<List<User>> findAll() {
-		List<User> list = userService.findAll();
+	public ResponseEntity<List<UserDTO>> findAll() {
+		List<UserDTO> list = userService.findAll();
 		return ResponseEntity.ok(list);
 	}
-
 }

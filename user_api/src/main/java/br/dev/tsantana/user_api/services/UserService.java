@@ -2,11 +2,11 @@ package br.dev.tsantana.user_api.services;
 
 import java.util.List;
 
-import br.dev.tsantana.user_api.domain.User;
+import br.dev.tsantana.user_api.dto.UserDTO;
 
 public interface UserService {
 
-	public User findById(Long id);
+	public UserDTO findById(Long id);
 	
-	public List<User> findAll();
+	public List<UserDTO> findAll();
 }
