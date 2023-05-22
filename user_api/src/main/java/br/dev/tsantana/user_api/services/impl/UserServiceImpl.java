@@ -10,6 +10,7 @@ import br.dev.tsantana.user_api.domain.User;
 import br.dev.tsantana.user_api.dto.UserDTO;
 import br.dev.tsantana.user_api.repositories.UserRepository;
 import br.dev.tsantana.user_api.services.UserService;
+import br.dev.tsantana.user_api.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -20,7 +21,8 @@ public class UserServiceImpl implements UserService{
 	@Transactional(readOnly = true)
 	@Override
 	public UserDTO findById(Long id) {
-		User obj = userRepository.findById(id).orElse(null);
+		User obj = userRepository.findById(id)
+				.orElseThrow(() -> new ObjectNotFoundException("Object not found"));
 		UserDTO dto = new UserDTO(obj);
 		return dto;
 	}
