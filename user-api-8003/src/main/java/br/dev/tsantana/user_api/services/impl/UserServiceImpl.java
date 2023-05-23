@@ -14,7 +14,6 @@ import br.dev.tsantana.user_api.services.exceptions.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-
 @RequiredArgsConstructor
 @Slf4j
 @Service
