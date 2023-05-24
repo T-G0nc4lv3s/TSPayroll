@@ -1,0 +1,100 @@
+version: '3.7'
+
+services:
+  eureka-server:
+    image:  tgonc4lv3s/eureka-server:1.0.0
+    ports:
+      -  "8761:8761"
+    expose:
+      -  "8761"
+    networks:
+      - tspayroll-system
+  
+  api-gateway:
+    image:  tgonc4lv3s/api-gateway:1.0.0
+    ports:
+      -  "8765:8765"
+    expose:
+      -  "8765"
+
+    depends_on:
+      - eureka-server
+    environment:
+      - PORT=8765
+      - EUREKA_URL=http://eureka-server:8761/eureka
+    networks:
+      - tspayroll-system
+
+  user-api1:
+    image: tgonc4lv3s/user-api:1.0.0
+    container_name:  user-api1
+    ports:
+      -  "8000:8000"
+    depends_on:
+      - eureka-server
+      - api-gateway
+    environment:
+      - PORT=8000
+      - EUREKA_URL=http://eureka-server:8761/eureka
+    networks:
+      - tspayroll-system
+
+  user-api2:
+    image: tgonc4lv3s/user-api:1.0.0
+    container_name:  user-api2
+    ports:
+      -  "8001:8001"
+    depends_on:
+      - eureka-server
+      - api-gateway
+    environment:
+      - PORT=8001
+      - EUREKA_URL=http://eureka-server:8761/eureka
+    networks:
+      - tspayroll-system
+  
+  user-api3:
+    image: tgonc4lv3s/user-api:1.0.0
+    container_name:  user-api3
+    ports:
+      -  "8002:8002"
+    depends_on:
+      - eureka-server
+      - api-gateway
+    environment:
+      - PORT=8002
+      - EUREKA_URL=http://eureka-server:8761/eureka
+    networks:
+      - tspayroll-system
+  
+  payroll-api1:
+    image: tgonc4lv3s/payroll-api:1.0.0
+    container_name: payroll-api1
+    ports:
+      -  "8100:8100"
+    depends_on:
+      - eureka-server
+      - api-gateway
+    environment:
+      - PORT=8100
+      - EUREKA_URL=http://eureka-server:8761/eureka
+    networks:
+      - tspayroll-system
+  
+  payroll-api2:
+    image: tgonc4lv3s/payroll-api:1.0.0
+    container_name: payroll-api2
+    ports:
+      -  "8101:8101"
+    depends_on:
+      - eureka-server
+      - api-gateway
+    environment:
+      - PORT=8101
+      - EUREKA_URL=http://eureka-server:8761/eureka
+    networks:
+      - tspayroll-system
+
+networks:
+  tspayroll-system:
+    driver: bridge
